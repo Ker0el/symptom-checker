@@ -1,0 +1,83 @@
+/* 查查 · 基础样式：纸张 + 墨 + 朱砂。不跟任何 SaaS 模板同款 */
+
+:root {
+  --paper: #f4efe3;
+  --paper-deep: #ebe3cf;
+  --ink: #24211a;
+  --ink-soft: #6b6455;
+  --cinnabar: #b03a2b;
+  --cinnabar-deep: #8a2c20;
+  --pine: #3e6b51;
+  --amber: #c08a2d;
+  --amber-deep: #9a6d1e;
+  --line: rgba(36, 33, 26, 0.16);
+  --serif: 'STKaiti', 'KaiTi', '楷体', 'Songti SC', 'SimSun', serif;
+  --sans: 'PingFang SC', 'Microsoft YaHei', '微软雅黑', system-ui, sans-serif;
+  /* 弹簧曲线：禁用线性动画 */
+  --spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background-color: var(--paper);
+  /* 噪点纹理（feTurbulence），纯平背景禁止 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+button { font-family: inherit; cursor: pointer; }
+textarea, input { font-family: inherit; }
+::selection { background: var(--cinnabar); color: var(--paper); }
+
+/* —— 共享组件 —— */
+
+.btn {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 26px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 var(--cinnabar);
+  transition:
+    transform 0.18s var(--spring),
+    box-shadow 0.18s var(--spring),
+    background 0.18s ease-out;
+}
+.btn:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--cinnabar); }
+.btn:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--cinnabar); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.back {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 14px;
+  padding: 6px 0;
+  text-decoration: underline dotted;
+  text-underline-offset: 4px;
+}
+.back:hover { color: var(--cinnabar); }
+
+.fine { color: var(--ink-soft); font-size: 13px; }
+.error { color: var(--cinnabar-deep); font-weight: 700; margin-top: 16px; }
+
+.block {
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  padding: 16px 18px;
+  margin-top: 20px;
+}
+.block h4 { font-family: var(--serif); font-size: 18px; margin-bottom: 8px; }
+.block ul { list-style: none; }
+.block li { padding: 5px 0 5px 20px; position: relative; font-size: 14.5px; }
+.block li::before { content: '·'; position: absolute; left: 6px; top: 5px; color: var(--cinnabar); font-weight: 900; }
+
+/* 页面切换动画（非线性） */
+.view-enter-active, .view-leave-active { transition: all 0.3s var(--spring); }
+.view-enter-from { opacity: 0; transform: translateY(16px); }
+.view-leave-to { opacity: 0; transform: translateY(-10px); }
